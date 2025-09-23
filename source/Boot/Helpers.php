@@ -52,6 +52,19 @@ function str_slug(string $string): string
     return $slug;
 }
 
+function cfg(string $path, $default=null) {
+    static $C;
+    if ($C === null) {
+        $C = \Source\Support\Settings::load(TENANT_ID);
+    }
+    $cur = $C;
+    foreach (explode('.', $path) as $seg) {
+        if (!is_array($cur) || !array_key_exists($seg, $cur)) return $default;
+        $cur = $cur[$seg];
+    }
+    return $cur;
+}
+
 /**
  * @param string $string
  * @return string
