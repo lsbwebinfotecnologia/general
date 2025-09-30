@@ -76,8 +76,10 @@ class Auth extends Model
      * @param int $level
      * @return User|null
      */
-    public function attempt(string $email, string $password, int $level = 1): ?User
+    public function attempt(string $email, string $password, int $level = 1, ?int $tenantId = null): ?User
     {
+        $tenantId = $tenantId ?? (defined('TENANT_ID') ? (int)TENANT_ID : null);
+
         if (!is_email($email)) {
             $this->message->warning("O e-mail informado não é válido");
             return null;
@@ -88,7 +90,15 @@ class Auth extends Model
             return null;
         }
 
-        $user = (new User())->findByEmail($email);
+        // Busca já escopada pelo tenant (se User NÃO herdar TenantModel, force o termo idCompany)
+        if ($tenantId !== null) {
+            $user = (new User())
+                ->find("email = :e AND idCompany = :c", "e={$email}&c={$tenantId}")
+                ->fetch();
+        } else {
+            // fallback (sem tenant)
+            $user = (new User())->find("email = :e", "e={$email}")->fetch();
+        }
 
         if (!$user) {
             $this->message->error("O e-mail informado não está cadastrado");

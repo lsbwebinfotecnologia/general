@@ -68,6 +68,7 @@ class Dash extends Admin
             false
         );
 
+
         echo $this->view->render("widgets/dash/home", [
             "app" => "dash",
             "head" => $head,

@@ -28,6 +28,7 @@ class Controller
      */
     public function __construct(string $pathToViews = null)
     {
+
         $this->view = new View($pathToViews);
         $this->seo = new Seo();
         $this->message = new Message();
