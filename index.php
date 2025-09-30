@@ -1,4 +1,6 @@
 <?php
+var_dump("aqui");
+die;
 ob_start();
 
 require __DIR__ . "/vendor/autoload.php";

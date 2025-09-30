@@ -601,7 +601,7 @@ p {
 }
 
 .dash_content_box {
-    max-width: 72em;
+    max-width: 100em;
     margin: auto;
     padding: 30px;
     display: flex;
