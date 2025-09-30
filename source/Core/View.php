@@ -45,6 +45,7 @@ class View
      */
     public function render(string $templateName, array $data): string
     {
+        $this->engine->addData($data);
         return $this->engine->render($templateName, $data);
     }
 

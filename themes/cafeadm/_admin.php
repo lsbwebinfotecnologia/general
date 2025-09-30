@@ -59,7 +59,7 @@
         <div class="dash_userbar">
             <div class="dash_userbar_box">
                 <div class="dash_content_box">
-                    <h1 class="icon-cog transition"><a href="<?= url("/admin/dash"); ?>">Café<b>Admin</b></a></h1>
+                    <h1 class="icon-cog transition"><a href="<?= url("/admin/dash"); ?>"><b>admin</b></a></h1>
                     <div class="dash_userbar_box_bar">
                         <span class="notification_center_open icon-bell"
                               data-count="<?= url("/admin/notifications/count"); ?>"

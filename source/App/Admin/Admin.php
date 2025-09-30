@@ -14,7 +14,7 @@ class Admin extends Controller
     /**
      * @var \Source\Models\User|null
      */
-    protected $user;
+    protected ?\Source\Models\User $user;
 
     /**
      * Admin constructor.
@@ -22,6 +22,8 @@ class Admin extends Controller
     public function __construct()
     {
         parent::    __construct(__DIR__ . "/../../../themes/" . CONF_VIEW_ADMIN . "/");
+
+
 
         $this->user = Auth::user();
 
