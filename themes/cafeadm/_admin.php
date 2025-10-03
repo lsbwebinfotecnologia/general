@@ -51,7 +51,7 @@
             echo $nav("pencil-square-o", "blog/home", "Blog");
             echo $nav("comments-o", "faq/home", "FAQs");
             echo $nav("graduation-cap", "school/home", "Escolas");
-                echo $nav("pencil-square-o", "subscriber/home", "Assinantes");
+                echo $nav("pencil-square-o", "subscriber/home", "Associados");
 
 
             echo $nav("sign-out on_mobile", "logoff", "Sair");

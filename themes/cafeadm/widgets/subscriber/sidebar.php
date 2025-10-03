@@ -10,17 +10,13 @@
                 return "<a class=\"icon-{$icon} radius {$active}\" href=\"{$url}\">{$title}</a>";
             };
 
-            echo $nav("pencil-square-o", "subscriber/home", "assinantes");
-            echo $nav("angle-down", "subscriber/type_subscriber", "tipo de assinante");
+            echo $nav("pencil-square-o", "subscriber/home", "associados");
+            echo $nav("angle-down", "subscriber/type_subscriber", "tipo de associados");
             echo $nav("flag", "control/plans", "Planos");
             echo $nav("cog", "subscriber/options", "opções");
             ?>
         </nav>
     </div>
-
-
-
-
 </div>
 
 
