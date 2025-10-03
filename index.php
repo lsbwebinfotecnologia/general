@@ -95,6 +95,29 @@ $route->get("/dash/home", "Dash:home");
 $route->post("/dash/home", "Dash:home");
 $route->get("/logoff", "Dash:logoff");
 
+//school
+$route->get("/school/home", "School:home");
+$route->get("/school/create", "School:school");
+$route->post("/school/create", "School:school");
+$route->get("/school/edit/{id}", "School:school");
+$route->get("/school/{search}/{page}", "School:home");
+
+//signature
+$route->get("/subscriber/home", "Subscriber:home");
+$route->get("/subscriber/create", "Subscriber:subscriber");
+$route->post("/subscriber/create", "Subscriber:subscriber");
+
+//partners
+// CADASTRO/EDIÇÃO (mesma action, com/sem {partner_id}) // Padronizado para qualquer tipo de parceiro, escolas, associados, forenecedores
+$route->get("/partners/{type}", "Partner:partner");
+$route->post("/partners/school", "Partner:partner");
+$route->get("/partners/{partner_id}", "Partner:partner");
+$route->post("/partners/{partner_id}", "Partner:partner");
+
+// EXCLUSÃO partners
+$route->post("/partners/{partner_id}/delete", "Partner:delete");
+
+
 //control
 $route->get("/control/home", "Control:home");
 $route->get("/control/subscriptions", "Control:subscriptions");
@@ -174,7 +197,8 @@ $route->dispatch();
  * ERROR REDIRECT
  */
 if ($route->error()) {
-    $route->redirect("/ops/{$route->error()}");
+    var_dump($route->error());
+//    $route->redirect("/ops/{$route->error()}");
 }
 
 ob_end_flush();

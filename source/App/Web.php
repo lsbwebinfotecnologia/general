@@ -104,7 +104,7 @@ class Web extends Controller
      */
     public function blogCategory(array $data): void
     {
-        $categoryUri = filter_var($data["category"], FILTER_SANITIZE_STRIPPED);
+        $categoryUri = filter_var($data["category"], FILTER_SANITIZE_SPECIAL_CHARS);
         $category = (new Category())->findByUri($categoryUri);
 
         if (!$category) {

@@ -23,8 +23,6 @@ class Admin extends Controller
     {
         parent::    __construct(__DIR__ . "/../../../themes/" . CONF_VIEW_ADMIN . "/");
 
-
-
         $this->user = Auth::user();
 
         if (!$this->user || $this->user->level < 5) {

@@ -2,6 +2,9 @@
 <?php $this->insert("widgets/control/sidebar"); ?>
 
 <section class="dash_content_app">
+
+
+
     <?php if (!$plan): ?>
         <header class="dash_content_app_header">
             <h2 class="icon-plus-circle">Novo Plano</h2>

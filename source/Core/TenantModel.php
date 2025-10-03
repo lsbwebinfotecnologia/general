@@ -2,7 +2,7 @@
 
 namespace Source\Core;
 
-abstract class TenantModel extends Model
+abstract class  TenantModel extends Model
 {
     protected int $cid;
 

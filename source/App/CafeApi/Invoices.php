@@ -144,7 +144,7 @@ class Invoices extends CafeApi
      */
     public function update(array $data): void
     {
-        $data = filter_var_array($data, FILTER_SANITIZE_STRIPPED);
+        $data = filter_var_array($data, FILTER_SANITIZE_SPECIAL_CHARS);
         if (empty($data["invoice_id"]) || !$invoice_id = filter_var($data["invoice_id"], FILTER_VALIDATE_INT)) {
             $this->call(
                 400,

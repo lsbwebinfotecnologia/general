@@ -295,7 +295,7 @@ class App extends Controller
 
             $wallet = new AppWallet();
             $wallet->user_id = $this->user->id;
-            $wallet->wallet = filter_var($data["wallet_name"], FILTER_SANITIZE_STRIPPED);
+            $wallet->wallet = filter_var($data["wallet_name"], FILTER_SANITIZE_SPECIAL_CHARS);
             $wallet->save();
 
             echo json_encode(["reload" => true]);
@@ -308,7 +308,7 @@ class App extends Controller
                 "user={$this->user->id}&id={$data["wallet"]}")->fetch();
 
             if ($wallet) {
-                $wallet->wallet = filter_var($data["wallet_edit"], FILTER_SANITIZE_STRIPPED);
+                $wallet->wallet = filter_var($data["wallet_edit"], FILTER_SANITIZE_SPECIAL_CHARS);
                 $wallet->save();
             }
 
@@ -471,7 +471,7 @@ class App extends Controller
                 return;
             }
 
-            $data = filter_var_array($data, FILTER_SANITIZE_STRIPPED);
+            $data = filter_var_array($data, FILTER_SANITIZE_SPECIAL_CHARS);
             $due_day = date("Y-m", strtotime($invoice->due_at)) . "-" . $data["due_day"];
             $invoice->category_id = $data["category"];
             $invoice->description = $data["description"];

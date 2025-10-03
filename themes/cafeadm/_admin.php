@@ -10,7 +10,9 @@
     <link rel="stylesheet" href="<?= url("/shared/styles/styles.css"); ?>"/>
     <link rel="stylesheet" href="<?= theme("/assets/css/style.css", CONF_VIEW_ADMIN); ?>"/>
 
-    <link rel="icon" type="image/png" href="<?= theme("/assets/images/favicon.png", CONF_VIEW_ADMIN); ?>"/>
+
+    <link rel="icon" type="image/png" href="<?= theme("/assets/images/favicon-cronuz.png", CONF_VIEW_ADMIN); ?>"/>
+
 </head>
 <body>
 
@@ -28,7 +30,7 @@
         <article class="dash_sidebar_user">
             <?php
             $photo = user()->photo();
-            $userPhoto = ($photo ? image($photo, 300, 300) : theme("/assets/images/avatar.jpg", CONF_VIEW_ADMIN));
+            $userPhoto = theme("/assets/images/avatar.jpg", CONF_VIEW_ADMIN);
             ?>
             <div><img class="dash_sidebar_user_thumb" src="<?= $userPhoto; ?>" alt="" title=""/></div>
             <h3 class="dash_sidebar_user_name">
@@ -48,18 +50,22 @@
             echo $nav("coffee", "control/home", "Control");
             echo $nav("pencil-square-o", "blog/home", "Blog");
             echo $nav("comments-o", "faq/home", "FAQs");
-            echo $nav("user", "users/home", "Usuários");
-            echo "<li class=\"dash_sidebar_nav_li\"><a class=\"icon-link\" href=\"" . url() . " \" target=\"_blank\">Ver site</a></li>";
+            echo $nav("graduation-cap", "school/home", "Escolas");
+                echo $nav("pencil-square-o", "subscriber/home", "Assinantes");
+
 
             echo $nav("sign-out on_mobile", "logoff", "Sair");
             ?>
         </ul>
     </aside>
-    <section class="dash_content">
+    <section class="dash_content icon-">
         <div class="dash_userbar">
             <div class="dash_userbar_box">
                 <div class="dash_content_box">
-                    <h1 class="icon-cog transition"><a href="<?= url("/admin/dash"); ?>"><b>admin</b></a></h1>
+                    <h1 class="dash_userbar_logo transition">
+                        <img src="<?= theme("/assets/images/logo-cronuz-icon.png", CONF_VIEW_ADMIN); ?>" alt="cronuz">
+                        <a href="<?= url("/admin/dash"); ?>"><strong>cronuz</strong></a>
+                    </h1>
                     <div class="dash_userbar_box_bar">
                         <span class="notification_center_open icon-bell"
                               data-count="<?= url("/admin/notifications/count"); ?>"
@@ -78,13 +84,24 @@
             <?= $this->section("content"); ?>
         </div>
     </section>
+
+
+
 </div>
+<footer class="app_footer">
+    <div class="app_footer_box">
+        <p><?= date('Y'); ?> lsbwebinfo | cronuz. todos os direitos reservados.</p>
+    </div>
+</footer>
 
 <script src="<?= url("/shared/scripts/jquery.min.js"); ?>"></script>
 <script src="<?= url("/shared/scripts/jquery.form.js"); ?>"></script>
 <script src="<?= url("/shared/scripts/jquery-ui.js"); ?>"></script>
 <script src="<?= url("/shared/scripts/jquery.mask.js"); ?>"></script>
 <script src="<?= url("/shared/scripts/tinymce/tinymce.min.js"); ?>"></script>
+
+
+
 <script src="<?= theme("/assets/js/scripts.js", CONF_VIEW_ADMIN); ?>"></script>
 <?= $this->section("scripts"); ?>
 

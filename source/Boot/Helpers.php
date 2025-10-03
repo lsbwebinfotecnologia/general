@@ -40,7 +40,7 @@ function is_passwd(string $password): bool
  */
 function str_slug(string $string): string
 {
-    $string = filter_var(mb_strtolower($string), FILTER_SANITIZE_STRIPPED);
+    $string = filter_var(mb_strtolower($string), FILTER_SANITIZE_SPECIAL_CHARS);
     $formats = 'ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜüÝÞßàáâãäåæçèéêëìíîïðñòóôõöøùúûýýþÿRr"!@#$%&*()_-+={[}]/?;:.,\\\'<>°ºª';
     $replace = 'aaaaaaaceeeeiiiidnoooooouuuuuybsaaaaaaaceeeeiiiidnoooooouuuyybyRr                                 ';
 
@@ -103,7 +103,7 @@ function str_title(string $string): string
  */
 function str_textarea(string $text): string
 {
-    $text = filter_var($text, FILTER_SANITIZE_STRIPPED);
+    $text = filter_var($text, FILTER_SANITIZE_SPECIAL_CHARS);
     $arrayReplace = ["&#10;", "&#10;&#10;", "&#10;&#10;&#10;", "&#10;&#10;&#10;&#10;", "&#10;&#10;&#10;&#10;&#10;"];
     return "<p>" . str_replace($arrayReplace, "</p><p>", $text) . "</p>";
 }
@@ -459,4 +459,94 @@ function request_repeat(string $field, string $value): bool
 
     $session->set($field, $value);
     return false;
+}
+
+function generateCNPJ($id) {
+    // Remove caracteres não numéricos
+    $id = preg_replace('/[^0-9]/', '', $id);
+
+    // Garante que o código tenha no máximo 12 dígitos
+    if (strlen($id) > 12) {
+        $id = substr($id, 0, 12);
+    }
+
+    // Completa com zeros à direita até ter 12 dígitos
+    $cnpjBase = str_pad($id, 12, '0', STR_PAD_RIGHT);
+
+    // Calcula o primeiro dígito verificador
+    $pesos1 = [5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2];
+    $soma1 = 0;
+
+    for ($i = 0; $i < 12; $i++) {
+        $soma1 += intval($cnpjBase[$i]) * $pesos1[$i];
+    }
+
+    $resto1 = $soma1 % 11;
+    $digito1 = ($resto1 < 2) ? 0 : 11 - $resto1;
+
+    // Adiciona o primeiro dígito e calcula o segundo
+    $cnpjComDigito1 = $cnpjBase . $digito1;
+    $pesos2 = [6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2];
+    $soma2 = 0;
+
+    for ($i = 0; $i < 13; $i++) {
+        $soma2 += intval($cnpjComDigito1[$i]) * $pesos2[$i];
+    }
+
+    $resto2 = $soma2 % 11;
+    $digito2 = ($resto2 < 2) ? 0 : 11 - $resto2;
+
+    // Retorna o CNPJ completo formatado
+    $cnpjCompleto = $cnpjComDigito1 . $digito2;
+
+    return formatCNPJ($cnpjCompleto);
+}
+
+/**
+ * @param $cnpj
+ * @return array|string|null
+ */
+function formatCNPJ($cnpj): array|string|null
+{
+    $cnpj = preg_replace('/[^0-9]/', '', $cnpj);
+    return preg_replace('/(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/', '$1.$2.$3/$4-$5', $cnpj);
+}
+
+function validateCNPJ($cnpj) {
+    $cnpj = preg_replace('/[^0-9]/', '', $cnpj);
+
+    if (strlen($cnpj) != 14) {
+        return false;
+    }
+
+    // Evita CNPJs com todos os dígitos iguais
+    if (preg_match('/(\d)\1{13}/', $cnpj)) {
+        return false;
+    }
+
+    // Calcula os dígitos verificadores
+    $pesos1 = [5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2];
+    $pesos2 = [6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2];
+
+    $cnpjBase = substr($cnpj, 0, 12);
+    $digitos = substr($cnpj, 12, 2);
+
+    // Primeiro dígito
+    $soma1 = 0;
+    for ($i = 0; $i < 12; $i++) {
+        $soma1 += intval($cnpjBase[$i]) * $pesos1[$i];
+    }
+    $resto1 = $soma1 % 11;
+    $digito1 = ($resto1 < 2) ? 0 : 11 - $resto1;
+
+    // Segundo dígito
+    $cnpjComDigito1 = $cnpjBase . $digito1;
+    $soma2 = 0;
+    for ($i = 0; $i < 13; $i++) {
+        $soma2 += intval($cnpjComDigito1[$i]) * $pesos2[$i];
+    }
+    $resto2 = $soma2 % 11;
+    $digito2 = ($resto2 < 2) ? 0 : 11 - $resto2;
+
+    return $digitos === $digito1 . $digito2;
 }

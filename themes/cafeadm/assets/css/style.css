@@ -11,6 +11,13 @@ html, body {
 p {
     margin: 0;
 }
+hr{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    height: 1px;
+    border: none;
+    background-color: #ddd;
+}
 
 .mce_upload {
     display: none;
@@ -199,6 +206,8 @@ p {
 
 /*FORM*/
 
+/*FORM*/
+
 .app_form {
 }
 
@@ -237,7 +246,7 @@ p {
 .app_form select {
     -webkit-appearance: none;
     -moz-appearance: none;
-    background-image: url("../images/selectarrow.png");
+    /* background-image: url("../images/selectarrow.png"); */ /* Desabilitado na demo */
     background-position: right 15px center;
     background-repeat: no-repeat;
     background-size: auto 20%;
@@ -271,6 +280,35 @@ p {
     .app_form .label_g2 .label:first-child {
         margin-right: 20px;
     }
+}
+
+/* Estilo para Radio/Checkbox inline com legend */
+.app_form .radio-group {
+    margin-bottom: 20px;
+}
+
+.app_form .radio-group .legend {
+    margin-bottom: 15px;
+}
+
+.app_form .radio-group .radio-options {
+    display: flex;
+    gap: 20px;
+}
+
+.app_form .radio-group label {
+    display: flex;
+    align-items: center;
+    font-weight: normal;
+    margin-bottom: 0;
+    width: auto;
+}
+
+.app_form .radio-group input[type="radio"],
+.app_form .radio-group input[type="checkbox"] {
+    display: inline-block;
+    width: auto;
+    margin-right: 8px;
 }
 
 .app_form_footer {
@@ -523,12 +561,12 @@ p {
 /*userbar*/
 
 .dash_userbar {
-    padding: 0 0 4px 0;
+    padding: 0 0 10px 0;
     overflow: hidden;
 }
 
 .dash_userbar_box {
-    padding: 15px 0;
+    padding: 20px 0;
     color: #888888;
     background: #fbfbfb;
     box-shadow: 0 0 4px 0 gray;
@@ -547,7 +585,7 @@ p {
 }
 
 .dash_userbar_box .dash_content_box {
-    padding: 0 30px;
+    padding: 0 10px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -603,7 +641,7 @@ p {
 .dash_content_box {
     max-width: 100em;
     margin: auto;
-    padding: 30px;
+    padding: 12px;
     display: flex;
 }
 
@@ -624,7 +662,7 @@ p {
 }
 
 .dash_content_sidebar {
-    flex-basis: 20%;
+    flex-basis: 18%;
 }
 
 .dash_content_sidebar h3 {
@@ -641,7 +679,7 @@ p {
 
 .dash_content_sidebar nav {
     display: block;
-    margin-top: 30px;
+    margin-top: 20px;
 }
 
 .dash_content_sidebar nav a {
@@ -655,14 +693,14 @@ p {
 
 .dash_content_sidebar nav .active,
 .dash_content_sidebar nav a:hover {
-    background: #ffffff;
+    background: #d5f5f1;
     padding-left: 20px;
 }
 
 /*content app*/
 
 .dash_content_app {
-    padding-left: 50px;
+    padding-left: 40px;
     flex-basis: 80%;
 }
 
@@ -674,6 +712,20 @@ p {
 
 .dash_content_app_box {
     margin-top: 30px
+}
+
+/* Novo estilo para o LOGO no cabeçalho */
+.dash_userbar_logo {
+    display: flex;
+    align-items: center;
+    font-size: var(--font-large);
+    font-weight: var(--weight-light);
+}
+
+.dash_userbar_logo img {
+    height: 30px; /* Altura do ícone */
+    width: auto;
+    margin-right: 10px;
 }
 
 /*DASHBOARD*/
@@ -774,7 +826,7 @@ p {
 }
 
 .app_control_subs {
-    margin-top: 30px;
+    margin-top: 10px;
     padding: 30px;
     background: #FFFFFF;
 }
@@ -1242,3 +1294,286 @@ p {
         margin-top: 15px;
     }
 }
+
+/* 1. PADRONIZAÇÃO DE CARD (Cadastro/Edição/Detalhes) */
+
+.app_card {
+    background: #FFFFFF;
+    padding: 20px;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05); /* Sombra suave, moderna */
+    border: 1px solid #e0e0e0;
+    -webkit-border-radius: var(--radius-normal);
+    -moz-border-radius: var(--radius-normal);
+    border-radius: var(--radius-normal);
+}
+
+.app_card_header {
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #eeeeee;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.app_card_header h2 {
+    font-size: var(--font-large);
+    font-weight: var(--weight-strong);
+    color: #333333;
+    margin: 0;
+}
+
+/* 2. PADRONIZAÇÃO DE TABELA (app_table) */
+
+.app_table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: #FFFFFF;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    border-radius: var(--radius-normal);
+    overflow: hidden;
+}
+
+.app_table th, .app_table td {
+    padding: 15px;
+    text-align: left;
+    font-size: var(--font-small);
+    border-bottom: 1px solid #eeeeee;
+}
+
+.app_table thead {
+    background-color: #f5f5f5;
+    color: #555555;
+    font-weight: var(--weight-strong);
+    text-transform: uppercase;
+}
+
+.app_table tbody tr:nth-child(even) {
+    background-color: #f9f9f9; /* Linhas zebradas */
+}
+
+.app_table tbody tr:hover {
+    background-color: #eef;
+}
+
+/* AÇÕES NA TABELA */
+
+.app_table .actions {
+    white-space: nowrap; /* Impede que os botões quebrem a linha */
+}
+
+.app_table .actions .btn {
+    padding: 6px 10px;
+    margin: 0 4px;
+    font-size: var(--font-min);
+    line-height: 1;
+    text-shadow: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Responsividade da Tabela (Mobile first) */
+@media (max-width: 40em) {
+    .app_table {
+        border-radius: 0; /* Remove a borda do container na visualização mobile */
+        box-shadow: none;
+    }
+
+    .app_table thead {
+        display: none; /* Esconde o cabeçalho na visualização mobile */
+    }
+
+    .app_table tr {
+        display: block;
+        margin-bottom: 15px;
+        border: 1px solid #cccccc;
+        border-radius: var(--radius-normal);
+        overflow: hidden;
+        background-color: #FFFFFF !important; /* Garante que a linha inteira seja branca */
+    }
+
+    .app_table td {
+        display: block;
+        text-align: right;
+        border: none;
+        padding: 10px 15px;
+        position: relative;
+    }
+
+    /* Adiciona o cabeçalho como um label antes dos dados na visualização mobile */
+    .app_table td:before {
+        content: attr(data-label);
+        float: left;
+        font-weight: var(--weight-strong);
+        color: #555555;
+        text-transform: uppercase;
+        font-size: var(--font-min);
+    }
+
+    .app_table td.actions {
+        text-align: center;
+        border-top: 1px solid #eeeeee;
+        padding: 15px 10px;
+    }
+}
+
+/* 3. PADRONIZAÇÃO DE FILTRO MULTI-CAMPO (app_filter) */
+
+.app_filter {
+    /* Reutiliza o estilo do card para o container do filtro */
+    background: #FFFFFF;
+    padding: 20px;
+    margin-bottom: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    border: 1px solid #e0e0e0;
+    -webkit-border-radius: var(--radius-normal);
+    -moz-border-radius: var(--radius-normal);
+    border-radius: var(--radius-normal);
+}
+
+
+.app_filter_fields {
+    display: flex;
+    flex-wrap: wrap;
+    /* ALTERAÇÃO 1: Adiciona um pequeno gap de 10px */
+    gap: 10px;
+    align-items: flex-end;
+    width: 100%; /* Garante que o container ocupe toda a largura */
+}
+
+/* Ajuste para inputs/selects dentro do filtro */
+.app_filter .label {
+    margin-bottom: 0;
+    /* ALTERAÇÃO 2: Remove a flexibilidade agressiva (flex-grow: 1, flex-basis: 0) */
+    /* Isso garante que a largura seja determinada pelo min-width ou pelo navegador */
+    min-width: 150px;
+
+    /* Garante que o input/select use 100% do label */
+    display: flex;
+    flex-direction: column;
+}
+
+/* ESTILO PARA COLAR OS CAMPOS */
+.app_filter .label input,
+.app_filter .label select {
+    padding: 8px 10px;
+    font-size: var(--font-small);
+    /* ALTERAÇÃO 3: Restaura o border-radius padrão (do form) */
+    /* ou use um border-radius padrão para módulos separados, vou usar o var(--radius-normal) */
+    border-radius: var(--radius-normal);
+    height: 38px; /* Altura fixa para alinhar com o botão */
+}
+
+/* AJUSTES DE BORDAS PARA DEIXAR OS CAMPOS 'COLADOS' (Form Group Style) */
+/* ALTERAÇÃO 4: Remove as regras que forçavam a colagem de bordas */
+
+.app_filter .label:not(:last-of-type) input,
+.app_filter .label:not(:last-of-type) select {
+    /* Removido: border-right: none; */
+    /* Já tem border-radius normal acima, não precisa de ajuste específico */
+}
+
+/* Arredondamento da primeira label */
+.app_filter .label:first-of-type input,
+.app_filter .label:first-of-type select {
+    /* Removido: border-radius: var(--radius-normal) 0 0 var(--radius-normal); */
+    /* O border-radius padrão já cobre tudo */
+}
+
+/* AÇÕES/BOTÃO DE FILTRO (no final) */
+.app_filter_actions {
+    white-space: nowrap;
+    display: flex;
+    /* Garante que o botão use a mesma altura do campo */
+    align-items: flex-end;
+}
+
+.app_filter_actions .btn {
+    margin-top: 0;
+    padding: 8px 15px;
+    height: 38px; /* Altura do botão igual aos inputs */
+    /* ALTERAÇÃO 5: Restaura o border-radius normal no botão */
+    border-radius: var(--radius-normal);
+    font-size: var(--font-small);
+    line-height: normal;
+}
+
+/* Responsividade do Filtro: Volta ao padrão stack em mobile */
+@media (max-width: 40em) {
+    .app_filter_fields {
+        flex-direction: column;
+        gap: 10px;
+        /* Reseta bordas coladas para mobile */
+        border-radius: 0;
+    }
+
+    .app_filter .label {
+        width: 100%;
+        min-width: unset;
+    }
+
+    .app_filter .label input,
+    .app_filter .label select {
+        border-radius: var(--radius-normal); /* Arredonda tudo em mobile */
+        border-right: 1px solid #cccccc; /* Restaura bordas em mobile */
+    }
+
+    .app_filter_actions {
+        width: 100%;
+    }
+
+    .app_filter_actions .btn {
+        width: 100%;
+        border-radius: var(--radius-normal); /* Arredonda o botão em mobile */
+    }
+}
+
+/* ======================================= */
+/* === NOVO FOOTER PADRONIZADO (.app_footer) === */
+/* ======================================= */
+
+.app_footer {
+    padding: 10px 0;
+    background: #2d4051;
+    color: #ffffff;
+    border-top: 1px solid #e0e0e0;
+    box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.03);
+    text-align: center;
+}
+
+.app_footer_box {
+    max-width: 100em;
+    margin: auto;
+    padding: 10px 10px;
+
+}
+
+.app_footer_logo img {
+    height: 35px; /* Altura da logo com slogan */
+    width: auto;
+    max-width: 200px;
+}
+
+.app_footer p {
+    font-size: var(--font-min);
+    color: #ffffff;
+    font-weight: var(--weight-strong);
+    margin-top: 5px;
+}
+
+@media (max-width: 40em) {
+    .app_footer_box {
+        justify-content: center;
+        text-align: center;
+    }
+    .app_footer_logo {
+        margin-bottom: 10px;
+        width: 100%;
+    }
+}
+
+/* FIM DAS NOVAS PADRONIZAÇÕES */

@@ -37,7 +37,7 @@ class AppInvoice extends Model
      */
     public function launch(User $user, array $data): ?AppInvoice
     {
-        $data = filter_var_array($data, FILTER_SANITIZE_STRIPPED);
+        $data = filter_var_array($data, FILTER_SANITIZE_SPECIAL_CHARS);
 
         if (
             empty($data["wallet_id"]) || empty($data["category_id"]) || empty($data["description"])

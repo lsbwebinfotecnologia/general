@@ -53,7 +53,7 @@ class AppCreditCard extends Model
     {
         $this->build = [
             "card_number" => $this->clear($number),
-            "card_holder_name" => filter_var($name, FILTER_SANITIZE_STRIPPED),
+            "card_holder_name" => filter_var($name, FILTER_SANITIZE_SPECIAL_CHARS),
             "card_expiration_date" => $this->clear($expDate),
             "card_cvv" => $this->clear($cvv)
         ];

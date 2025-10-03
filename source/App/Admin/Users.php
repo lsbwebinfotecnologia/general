@@ -74,7 +74,7 @@ class Users extends Admin
     {
         //create
         if (!empty($data["action"]) && $data["action"] == "create") {
-            $data = filter_var_array($data, FILTER_SANITIZE_STRIPPED);
+            $data = filter_var_array($data, FILTER_SANITIZE_SPECIAL_CHARS);
 
             $userCreate = new User();
             $userCreate->first_name = $data["first_name"];
@@ -117,7 +117,7 @@ class Users extends Admin
 
         //update
         if (!empty($data["action"]) && $data["action"] == "update") {
-            $data = filter_var_array($data, FILTER_SANITIZE_STRIPPED);
+            $data = filter_var_array($data, FILTER_SANITIZE_SPECIAL_CHARS);
             $userUpdate = (new User())->findById($data["user_id"]);
 
             if (!$userUpdate) {
@@ -169,7 +169,7 @@ class Users extends Admin
 
         //delete
         if (!empty($data["action"]) && $data["action"] == "delete") {
-            $data = filter_var_array($data, FILTER_SANITIZE_STRIPPED);
+            $data = filter_var_array($data, FILTER_SANITIZE_SPECIAL_CHARS);
             $userDelete = (new User())->findById($data["user_id"]);
 
             if (!$userDelete) {

@@ -67,7 +67,7 @@ abstract class Uploader
      */
     protected function name(string $name): string
     {
-        $name = filter_var(mb_strtolower($name), FILTER_SANITIZE_STRIPPED);
+        $name = filter_var(mb_strtolower($name), FILTER_SANITIZE_SPECIAL_CHARS);
         $formats = 'ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜüÝÞßàáâãäåæçèéêëìíîïðñòóôõöøùúûýýþÿRr"!@#$%&*()_-+={[}]/?;:.,\\\'<>°ºª';
         $replace = 'aaaaaaaceeeeiiiidnoooooouuuuuybsaaaaaaaceeeeiiiidnoooooouuuyybyRr                                 ';
         $name = str_replace(["-----", "----", "---", "--"], "-",

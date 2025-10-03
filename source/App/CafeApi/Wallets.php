@@ -97,7 +97,7 @@ class Wallets extends CafeApi
 
         $wallet = new AppWallet();
         $wallet->user_id = $this->user->id;
-        $wallet->wallet = filter_var($data["wallet"], FILTER_SANITIZE_STRIPPED);
+        $wallet->wallet = filter_var($data["wallet"], FILTER_SANITIZE_SPECIAL_CHARS);
         $wallet->save();
 
         $this->back(["wallet" => $wallet->data()]);
@@ -141,7 +141,7 @@ class Wallets extends CafeApi
      */
     public function update(array $data): void
     {
-        $data = filter_var_array($data, FILTER_SANITIZE_STRIPPED);
+        $data = filter_var_array($data, FILTER_SANITIZE_SPECIAL_CHARS);
         if (empty($data["wallet_id"]) || !$wallet_id = filter_var($data["wallet_id"], FILTER_VALIDATE_INT)) {
             $this->call(
                 400,

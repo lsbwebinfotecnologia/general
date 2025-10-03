@@ -101,7 +101,7 @@ class Control extends Admin
     {
         //update subscription
         if (!empty($data["action"]) && $data["action"] == "update") {
-            $data = filter_var_array($data, FILTER_SANITIZE_STRIPPED);
+            $data = filter_var_array($data, FILTER_SANITIZE_SPECIAL_CHARS);
             $subscriptionUpdate = (new AppSubscription())->findById($data["id"]);
 
             if (!$subscriptionUpdate) {
@@ -190,7 +190,7 @@ class Control extends Admin
     {
         //create plan
         if (!empty($data["action"]) && $data["action"] == "create") {
-            $data = filter_var_array($data, FILTER_SANITIZE_STRIPPED);
+            $data = filter_var_array($data, FILTER_SANITIZE_SPECIAL_CHARS);
 
             $planCreate = new AppPlan();
             $planCreate->name = $data["name"];
@@ -214,7 +214,7 @@ class Control extends Admin
 
         //update plan
         if (!empty($data["action"]) && $data["action"] == "update") {
-            $data = filter_var_array($data, FILTER_SANITIZE_STRIPPED);
+            $data = filter_var_array($data, FILTER_SANITIZE_SPECIAL_CHARS);
             $planEdit = (new AppPlan())->findById($data["plan_id"]);
 
             if (!$planEdit) {
@@ -243,7 +243,7 @@ class Control extends Admin
 
         //delete plan
         if (!empty($data["action"]) && $data["action"] == "delete") {
-            $data = filter_var_array($data, FILTER_SANITIZE_STRIPPED);
+            $data = filter_var_array($data, FILTER_SANITIZE_SPECIAL_CHARS);
             $planDelete = (new AppPlan())->findById($data["plan_id"]);
 
             if (!$planDelete) {

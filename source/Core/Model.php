@@ -12,6 +12,16 @@ use Source\Support\Message;
  */
 abstract class Model
 {
+
+    /** ID do tenant atual (vem do bootstrap TENANT_ID). */
+    protected int $tenantId;
+
+    /**
+     * Controla se ESTE model aplica escopo de tenant automaticamente.
+     * Deixe TRUE por padrão aqui, e nos modelos que NÃO devem ser escopados, defina como FALSE.
+     */
+    protected bool $tenantScoped = true;
+
     /** @var object|null */
     protected $data;
 
@@ -53,11 +63,20 @@ abstract class Model
      */
     public function __construct(string $entity, array $protected, array $required)
     {
-        $this->entity = $entity;
+        $this->entity   = $entity;
         $this->protected = array_merge($protected, ['created_at', "updated_at"]);
-        $this->required = $required;
-        $this->message = new Message();
+        $this->required  = $required;
+        $this->message   = new Message();
+
+        // 👇 importa o tenant resolvido no bootstrap
+        $this->tenantId = defined('TENANT_ID') ? TENANT_ID : 0;
+//        var_dump($this->tenantId);
+
+        // evita notices na concatenação
+        $this->order = $this->limit = $this->offset = "";
     }
+
+
 
     /**
      * @param $name
@@ -122,13 +141,21 @@ abstract class Model
      */
     public function find(?string $terms = null, ?string $params = null, string $columns = "*")
     {
+
+        [$terms, $params] = $this->applyTenant($terms, $params);
+
         if ($terms) {
             $this->query = "SELECT {$columns} FROM {$this->entity} WHERE {$terms}";
             parse_str($params, $this->params);
+//            var_dump($this);
+
             return $this;
         }
 
-        $this->query = "SELECT {$columns} FROM {$this->entity}";
+        $this->query  = "SELECT {$columns} FROM {$this->entity}";
+        $this->params = []; // sem WHERE
+
+
         return $this;
     }
 
@@ -139,7 +166,8 @@ abstract class Model
      */
     public function findById(int $id, string $columns = "*"): ?Model
     {
-        $find = $this->find("id = :id", "id={$id}", $columns);
+        [$t, $p] = $this->applyTenant("id = :id", "id={$id}");
+        $find = $this->find($t ? $t : null, $p ?: null, $columns);
         return $find->fetch();
     }
 
@@ -259,6 +287,9 @@ abstract class Model
      */
     public function save(): bool
     {
+        // garante idCompany antes da validação de required()
+        $this->injectTenantOnData();
+
         if (!$this->required()) {
             $this->message->warning("Preencha todos os campos para continuar");
             return false;
@@ -266,8 +297,17 @@ abstract class Model
 
         /** Update */
         if (!empty($this->id)) {
-            $id = $this->id;
-            $this->update($this->safe(), "id = :id", "id={$id}");
+            $id = (int)$this->id;
+
+            // trava o update ao registro do tenant atual
+            $terms  = "id = :id";
+            $params = "id={$id}";
+            if ($this->tenantScoped) {
+                $terms  .= " AND idCompany = :cid";
+                $params .= "&cid={$this->tenantId}";
+            }
+
+            $this->update($this->safe(), $terms, $params);
             if ($this->fail()) {
                 $this->message->error("Erro ao atualizar, verifique os dados");
                 return false;
@@ -283,9 +323,10 @@ abstract class Model
             }
         }
 
-        $this->data = $this->findById($id)->data();
+        $this->data = $this->findById((int)$id)->data();
         return true;
     }
+
 
     /**
      * @return int
@@ -303,14 +344,15 @@ abstract class Model
     public function delete(string $terms, ?string $params): bool
     {
         try {
+            [$terms, $params] = $this->applyTenant($terms, $params);
+
             $stmt = Connect::getInstance()->prepare("DELETE FROM {$this->entity} WHERE {$terms}");
             if ($params) {
-                parse_str($params, $params);
-                $stmt->execute($params);
-                return true;
+                parse_str($params, $paramsArr);
+                $stmt->execute($paramsArr);
+            } else {
+                $stmt->execute();
             }
-
-            $stmt->execute();
             return true;
         } catch (\PDOException $exception) {
             $this->fail = $exception;
@@ -369,4 +411,53 @@ abstract class Model
         }
         return true;
     }
+
+    /** Troca o tenant desta instância (admin global etc.) */
+    public function setTenant(int $idCompany): self
+    {
+        $this->tenantId = $idCompany;
+        return $this;
+    }
+
+    /** Desliga o escopo de tenant só para esta instância */
+    public function noTenant(): self
+    {
+        $this->tenantScoped = false;
+        return $this;
+    }
+
+    /** Religa o escopo de tenant */
+    public function withTenant(): self
+    {
+        $this->tenantScoped = true;
+        return $this;
+    }
+
+    /** Monta termos/params com idCompany quando o escopo estiver ativo */
+    protected function applyTenant(?string $terms, ?string $params): array
+    {
+        if (!$this->tenantScoped) {
+            return [$terms ?? "", $params ?? ""];
+        }
+
+        // aplica filtro de tenant: idCompany = :cid
+        $terms  = $terms ? "idCompany = :cid AND ({$terms})" : "idCompany = :cid";
+        $params = $params ? "cid={$this->tenantId}&{$params}" : "cid={$this->tenantId}";
+
+        return [$terms, $params];
+    }
+
+    /** Garante idCompany no this->data antes de validar/salvar */
+    protected function injectTenantOnData(): void
+    {
+        if (!$this->tenantScoped) return;
+
+        if (empty($this->data)) {
+            $this->data = new \stdClass();
+        }
+        if (empty($this->data->idCompany)) {
+            $this->data->idCompany = $this->tenantId;
+        }
+    }
+
 }

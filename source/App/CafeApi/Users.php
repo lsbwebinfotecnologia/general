@@ -47,7 +47,7 @@ class Users extends CafeApi
             return;
         }
 
-        $data = filter_var_array($data, FILTER_SANITIZE_STRIPPED);
+        $data = filter_var_array($data, FILTER_SANITIZE_SPECIAL_CHARS);
 
         $genreList = ["female", "male", "other"];
         if (!empty($data["genre"]) && !in_array($data["genre"], $genreList)) {
