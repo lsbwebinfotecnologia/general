@@ -10,7 +10,7 @@
         <section class="app_dash_home_stats">
             <article class="control radius">
                 <h4 class="icon-coffee">Control</h4>
-                <p><b>Assinantes:</b> <?= $control->subscribers; ?></p>
+                <p><b>associados:</b> <?= $control->subscribers; ?></p>
                 <p><b>Planos:</b> <?= $control->plans; ?></p>
                 <p><b>Recorrencia:</b> R$ <?= str_price($control->recurrence); ?></p>
             </article>

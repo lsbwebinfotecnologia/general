@@ -17,7 +17,7 @@
                         <article class="radius">
                             <div>
                                 <h4 class="icon-flag"><?= $plan->name; ?></h4>
-                                <p><b>Assinantes:</b> <?= str_pad($plan->subscribers()->count(), 3, 0, 0); ?></p>
+                                <p><b>associados:</b> <?= str_pad($plan->subscribers()->count(), 3, 0, 0); ?></p>
                                 <p><b>Recorrência:</b> R$ <?= str_price($plan->recurrence()); ?></p>
                             </div>
 

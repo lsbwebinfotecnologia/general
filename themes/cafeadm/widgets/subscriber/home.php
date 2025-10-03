@@ -7,7 +7,7 @@
         <div class="app_control_home">
             <section class="app_control_home_stats">
                 <article class="radius">
-                    <h4 class="icon-user">Assinantes</h4>
+                    <h4 class="icon-user">associados</h4>
                     <p><?= str_pad($stats->subscriptions, 5, 0, 0); ?></p>
                 </article>
 
