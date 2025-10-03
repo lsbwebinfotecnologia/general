@@ -15,11 +15,11 @@
             <div class="app_control_subscribers">
                 <?php if (!$subscriptions): ?>
                     <?php if (empty($search)): ?>
-                        <div class="message info icon-info">Ainda não existem assinantes em seu APP, assim que eles
+                        <div class="message info icon-info">Ainda não existem associados em seu APP, assim que eles
                             começarem a chegar você verá os mais recentes aqui. Esperamos que seja em breve :)
                         </div>
                     <?php else: ?>
-                        <div class="message warning icon-warning">Não foram encontrados assinantes com NOME, SOBRENOME
+                        <div class="message warning icon-warning">Não foram encontrados associados com NOME, SOBRENOME
                             ou EMAIL igual a <b><?= $search; ?></b>. Você pode tentar outros termos...
                         </div>
                     <?php endif; ?>

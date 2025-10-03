@@ -34,7 +34,7 @@
             <section class="app_control_subs radius">
                 <h3 class="icon-heartbeat">Assinaturas:</h3>
                 <?php if (!$subscriptions): ?>
-                    <div class="message info icon-info">Ainda não existem assinantes em seu APP, assim que eles
+                    <div class="message info icon-info">Ainda não existem associados em seu APP, assim que eles
                         começarem a chegar você verá os mais recentes aqui. Esperamos que seja em breve :)
                     </div>
                 <?php else: ?>

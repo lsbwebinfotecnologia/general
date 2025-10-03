@@ -30,7 +30,7 @@
             <div class="app_filter">
                 <div class="app_filter_fields">
                     <label class="label legend" for="filter_name">
-                        <input type="text" id="filter_name" placeholder="nome do assinante">
+                        <input type="text" id="filter_name" placeholder="nome do associado">
                     </label>
 
                     <label class="label legend" for="filter_status">
@@ -51,12 +51,12 @@
             <!-- DEMO 2: PADRONIZAÇÃO DE CARD (.app_card) e TABELA (.app_table) -->
             <div class="app_card">
                 <div class="app_card_header">
-                    <h2>lista de assinantes</h2>
-                    <a href="<?= url("/admin/subscriber/create")?>" class="btn btn-green"><i class="icon-plus-circle"></i> novo assinante</a>
+                    <h2>lista de associados</h2>
+                    <a href="<?= url("/admin/subscriber/create")?>" class="btn btn-green"><i class="icon-plus-circle"></i> novo associado</a>
                 </div>
 
                 <?php if (!$subscriptions): ?>
-                    <div class="message info icon-info">Ainda não existem assinantes em seu APP, assim que eles
+                    <div class="message info icon-info">Ainda não existem associados em seu APP, assim que eles
                         começarem a chegar você verá os mais recentes aqui. Esperamos que seja em breve :)
                     </div>
                 <?php else: ?>

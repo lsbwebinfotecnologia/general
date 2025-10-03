@@ -4,7 +4,7 @@
 <section class="dash_content_app">
     <?php if (!$subscriber): ?>
         <header class="dash_content_app_header">
-            <h2 class="icon-bookmark-o">novo assinante</h2>
+            <h2 class="icon-bookmark-o">novo associado</h2>
         </header>
 
         <div class="dash_content_app_box">
