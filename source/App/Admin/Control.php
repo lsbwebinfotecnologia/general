@@ -178,7 +178,7 @@ class Control extends Admin
         echo $this->view->render("widgets/control/plans", [
             "app" => "control/plans",
             "head" => $head,
-            "plans" => $plans->order("status ASC, created_at DESC")->limit($pager->limit())->offset($pager->offset())->fetch(true),
+            "plans" => $plans->order("name ASC, created_at DESC")->limit($pager->limit())->offset($pager->offset())->fetch(true),
             "paginator" => $pager->render()
         ]);
     }
